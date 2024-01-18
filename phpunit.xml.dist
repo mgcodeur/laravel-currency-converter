@@ -18,6 +18,7 @@
     <testsuites>
         <testsuite name="Mgcodeur Test Suite">
             <directory>tests</directory>
+            <directory>tests/Unit</directory>
         </testsuite>
     </testsuites>
     <coverage>
