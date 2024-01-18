@@ -2,9 +2,8 @@
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/mgcodeur/laravel-currency-converter.svg?style=flat-square)](https://packagist.org/packages/mgcodeur/laravel-currency-converter)
 
-[//]: # (TODO: write tests)
-[//]: # ([![GitHub Tests Action Status]&#40;https://img.shields.io/github/actions/workflow/status/mgcodeur/laravel-currency-converter/run-tests.yml?branch=main&label=tests&style=flat-square&#41;]&#40;https://github.com/mgcodeur/laravel-currency-converter/actions?query=workflow%3Arun-tests+branch%3Amain&#41;)
 
+[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/mgcodeur/laravel-currency-converter/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/mgcodeur/laravel-currency-converter/?query=workflow%3Arun-tests+branch%3Amain)
 [![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/mgcodeur/laravel-currency-converter/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/mgcodeur/laravel-currency-converter/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/mgcodeur/laravel-currency-converter.svg?style=flat-square)](https://packagist.org/packages/mgcodeur/laravel-currency-converter)
 
