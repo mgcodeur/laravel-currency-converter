@@ -35,6 +35,12 @@ $convertedAmount = CurrencyConverter::convert(10)
 
 dd($convertedAmount);
 ```
+**NB: Don't Forget to import the CurrencyConverter Facades**
+
+```php
+use Mgcodeur\CurrencyConverter\Facades\CurrencyConverter;
+```
+
 ### Convert all money from one
 
 You can convert all money from one currency when you don't specify the `to` method.
