@@ -52,3 +52,13 @@ $convertedAmount = CurrencyConverter::convert(10)
 
 dd($convertedAmount);
 ```
+
+### Get all currencies
+
+To get all currencies, you can use the `currencies` method.
+
+```php
+$currencies = CurrencyConverter::currencies()->get();
+
+dd($currencies);
+```
