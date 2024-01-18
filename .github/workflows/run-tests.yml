@@ -2,7 +2,7 @@ name: run-tests
 
 on:
   push:
-    paths: &default-paths
+    paths:
       - '**.php'
       - '.github/workflows/run-tests.yml'
       - 'phpunit.xml.dist'
@@ -10,7 +10,12 @@ on:
       - 'composer.lock'
 
   workflow_dispatch:
-    paths: *default-paths
+    paths:
+      - '**.php'
+      - '.github/workflows/run-tests.yml'
+      - 'phpunit.xml.dist'
+      - 'composer.json'
+      - 'composer.lock'
 
 jobs:
   test:
