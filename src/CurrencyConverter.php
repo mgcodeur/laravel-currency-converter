@@ -13,6 +13,8 @@ class CurrencyConverter
 
     private float $amount = 0;
 
+    private array $currencies = [];
+
     public function __construct(private CurrencyService $currencyService)
     {
     }
@@ -60,11 +62,32 @@ class CurrencyConverter
     /**
      * @throws Exception
      */
+    public function currencies(): static
+    {
+        $response = $this->currencyService->fetchAllCurrencies();
+        $result = $response->json();
+
+        if (! $result) {
+            throw new Exception('Something went wrong, please try again later');
+        }
+
+        $this->currencies = array_change_key_case($result, CASE_UPPER);
+
+        return $this;
+    }
+
+    /**
+     * @throws Exception
+     */
     public function get(): float|int|array
     {
         $this->verifyDataBeforeGettingResults();
 
-        $response = $this->currencyService->getApiResult(
+        if ($this->currencies) {
+            return $this->currencies;
+        }
+
+        $response = $this->currencyService->runConversionFrom(
             from: $this->from,
             to: $this->to
         );
@@ -91,10 +114,10 @@ class CurrencyConverter
      */
     private function verifyDataBeforeGettingResults(): void
     {
-        if (! $this->amount) {
+        if (! $this->amount && ! $this->currencies) {
             throw new Exception('Amount is required, please use convert() or amount() method before getting the result');
         }
-        if (! $this->from) {
+        if (! $this->from && ! $this->currencies) {
             throw new Exception('From currency is required, please specify currency using from() method before getting the result');
         }
     }

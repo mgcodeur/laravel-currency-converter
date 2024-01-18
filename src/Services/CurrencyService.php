@@ -20,7 +20,12 @@ class CurrencyService
         return array_change_key_case($converted, CASE_UPPER);
     }
 
-    public function getApiResult(string $from, ?string $to = null): Response
+    public function fetchAllCurrencies(): Response
+    {
+        return Http::get(config('currency-converter.api.url').'.json');
+    }
+
+    public function runConversionFrom(string $from, ?string $to = null): Response
     {
         if (! $to) {
             return Http::get(config('currency-converter.api.url')."/{$from}.json");
