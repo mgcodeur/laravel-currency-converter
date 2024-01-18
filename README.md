@@ -28,6 +28,7 @@ php artisan currency-converter:install
 ### Convert money from one to another
 
 ```php
+// convert 10 USD to MGA
 $convertedAmount = CurrencyConverter::convert(10)
             ->from('USD')
             ->to('MGA')
@@ -46,7 +47,8 @@ use Mgcodeur\CurrencyConverter\Facades\CurrencyConverter;
 You can convert all money from one currency when you don't specify the `to` method.
 
 ```php
-$convertedAmount = CurrencyConverter::convert(10)
+// convert 5 EUR to all currencies
+$convertedAmount = CurrencyConverter::convert(5)
             ->from('EUR')
             ->get();
 
