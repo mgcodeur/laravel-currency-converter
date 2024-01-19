@@ -63,3 +63,33 @@ $currencies = CurrencyConverter::currencies()->get();
 
 dd($currencies);
 ```
+
+### Format output result
+
+Instead of using the `get` method, you can use the `format` method to format the output result.
+
+```php
+// convert 10 USD to EUR and format the result
+$convertedAmount = CurrencyConverter::convert(10)
+            ->from('USD')
+            ->to('EUR') // you don't need to specify the to method if you want to convert all currencies
+            ->format();
+
+dd($convertedAmount);
+```
+
+By default, thousand separator is a comma (,) and decimal separator is a dot (.). You can change these separators in published config file (`config/currency-converter.php`).
+<br/>
+If you open the config file, you will see the following code:
+
+```php
+return [
+    'currency' => [
+        'format' => [
+            'decimals' => 2, // change this to 0 if you want result like 1.000, or 3 if you want result like 1.000.000
+            'decimal_separator' => ',', // change this to '.' if you want result like 1.000,00, or space if you want result like 1 000,00
+            'thousand_separator' => '.', // change this to ',' if you want result like 1,000.00, or space if you want result like 1 000.00
+        ]
+    ],
+];
+```
