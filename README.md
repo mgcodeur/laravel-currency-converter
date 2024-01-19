@@ -88,7 +88,7 @@ return [
         'format' => [
             'decimals' => 2, // change this to 0 if you want result like 1.000, or 3 if you want result like 1.000.000
             'decimal_separator' => ',', // change this to '.' if you want result like 1.000,00, or space if you want result like 1 000,00
-            'thousand_separator' => '.', // change this to ',' if you want result like 1,000.00, or space if you want result like 1 000.00
+            'thousand_separator' => '.', // change this to ',' if you want result like 1,000.00, or '.' if you want result like 1 000.00
         ]
     ],
 ];
