@@ -7,13 +7,24 @@ use Illuminate\Support\Facades\Http;
 
 class CurrencyService
 {
-    public function convertAllCurrency($amount, $from, $result): array
+    private string $baseUrl = 'https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies';
+
+    public function convertAllCurrency($amount, $from, $result, $format = false): array
     {
         $converted = [];
 
         if (array_key_exists($from, $result) && ! empty($result[$from])) {
             foreach ($result[$from] as $currency => $value) {
-                $converted[$currency] = $value * $amount;
+                if ($format) {
+                    $converted[$currency] = number_format(
+                        num: $value * $amount,
+                        decimals: config('currency-converter.currency.format.decimals'),
+                        decimal_separator: config('currency-converter.currency.format.decimal_separator'),
+                        thousands_separator: config('currency-converter.currency.format.thousand_separator')
+                    );
+                } else {
+                    $converted[$currency] = $value * $amount;
+                }
             }
         }
 
@@ -22,15 +33,15 @@ class CurrencyService
 
     public function fetchAllCurrencies(): Response
     {
-        return Http::get(config('currency-converter.api.url').'.json');
+        return Http::get($this->baseUrl.'.json');
     }
 
     public function runConversionFrom(string $from, ?string $to = null): Response
     {
         if (! $to) {
-            return Http::get(config('currency-converter.api.url')."/{$from}.json");
+            return Http::get($this->baseUrl."/{$from}.json");
         }
 
-        return Http::get(config('currency-converter.api.url')."/{$from}/{$to}.json");
+        return Http::get($this->baseUrl."/{$from}/{$to}.json");
     }
 }

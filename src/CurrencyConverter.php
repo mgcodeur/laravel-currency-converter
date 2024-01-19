@@ -4,16 +4,19 @@ namespace Mgcodeur\CurrencyConverter;
 
 use Exception;
 use Mgcodeur\CurrencyConverter\Services\CurrencyService;
+use Mgcodeur\CurrencyConverter\Traits\CurrencyConverterManager;
 
 class CurrencyConverter
 {
-    private string $from = '';
+    use CurrencyConverterManager;
 
-    private string $to = '';
+    protected string $from = '';
 
-    private float $amount = 0;
+    protected string $to = '';
 
-    private array $currencies = [];
+    protected float $amount = 0;
+
+    protected array $currencies = [];
 
     public function __construct(private CurrencyService $currencyService)
     {
@@ -74,51 +77,5 @@ class CurrencyConverter
         $this->currencies = array_change_key_case($result, CASE_UPPER);
 
         return $this;
-    }
-
-    /**
-     * @throws Exception
-     */
-    public function get(): float|int|array
-    {
-        $this->verifyDataBeforeGettingResults();
-
-        if ($this->currencies) {
-            return $this->currencies;
-        }
-
-        $response = $this->currencyService->runConversionFrom(
-            from: $this->from,
-            to: $this->to
-        );
-
-        if ($response->failed() || ! $response->json()) {
-            throw new Exception('Something went wrong, please try again later');
-        }
-
-        $result = $response->json();
-
-        if (! $this->to) {
-            return $this->currencyService->convertAllCurrency(
-                amount: $this->amount,
-                from: $this->from,
-                result: $result
-            );
-        }
-
-        return $result[$this->to] * $this->amount;
-    }
-
-    /**
-     * @throws Exception
-     */
-    private function verifyDataBeforeGettingResults(): void
-    {
-        if (! $this->amount && ! $this->currencies) {
-            throw new Exception('Amount is required, please use convert() or amount() method before getting the result');
-        }
-        if (! $this->from && ! $this->currencies) {
-            throw new Exception('From currency is required, please specify currency using from() method before getting the result');
-        }
     }
 }
