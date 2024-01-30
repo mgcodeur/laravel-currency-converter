@@ -2,12 +2,14 @@
 
 namespace Mgcodeur\CurrencyConverter\Traits;
 
-use Exception;
+use Mgcodeur\CurrencyConverter\Exceptions\MissingAmountException;
+use Mgcodeur\CurrencyConverter\Exceptions\MissingCurrencyException;
+use Mgcodeur\CurrencyConverter\Exceptions\NetworkException;
 
 trait CurrencyConverterManager
 {
     /**
-     * @throws Exception
+     * @throws NetworkException | MissingAmountException | MissingCurrencyException
      */
     public function get($format = false): float|int|array|string
     {
@@ -23,7 +25,7 @@ trait CurrencyConverterManager
         );
 
         if ($response->failed() || ! $response->json()) {
-            throw new Exception('Something went wrong, please try again later');
+            throw new NetworkException();
         }
 
         $result = $response->json();
@@ -50,7 +52,7 @@ trait CurrencyConverterManager
     }
 
     /**
-     * @throws Exception
+     * @throws NetworkException | MissingAmountException | MissingCurrencyException
      */
     public function format(): float|array|int|string
     {
@@ -58,15 +60,15 @@ trait CurrencyConverterManager
     }
 
     /**
-     * @throws Exception
+     * @throws MissingAmountException | MissingCurrencyException
      */
     private function verifyDataBeforeGettingResults(): void
     {
         if (! $this->amount && ! $this->currencies) {
-            throw new Exception('Amount is required, please use convert() or amount() method before getting the result');
+            throw new MissingAmountException();
         }
         if (! $this->from && ! $this->currencies) {
-            throw new Exception('From currency is required, please specify currency using from() method before getting the result');
+            throw new MissingCurrencyException();
         }
     }
 }

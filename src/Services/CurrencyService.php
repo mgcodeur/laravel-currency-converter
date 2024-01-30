@@ -36,12 +36,8 @@ class CurrencyService
         return Http::get($this->baseUrl.'.json');
     }
 
-    public function runConversionFrom(string $from, ?string $to = null): Response
+    public function runConversionFrom(string $from, ?string $to = ''): Response
     {
-        if (! $to) {
-            return Http::get($this->baseUrl."/{$from}.json");
-        }
-
-        return Http::get($this->baseUrl."/{$from}/{$to}.json");
+        return $to ? Http::get($this->baseUrl."/{$from}/{$to}.json") : Http::get($this->baseUrl."/{$from}.json");
     }
 }
