@@ -2,7 +2,7 @@
 
 namespace Mgcodeur\CurrencyConverter;
 
-use Exception;
+use Mgcodeur\CurrencyConverter\Exceptions\NetworkException;
 use Mgcodeur\CurrencyConverter\Services\CurrencyService;
 use Mgcodeur\CurrencyConverter\Traits\CurrencyConverterManager;
 
@@ -25,7 +25,7 @@ class CurrencyConverter
     /**
      * @return $this
      */
-    public function convert(float $amount): static
+    public function convert(float $amount = 0): static
     {
         $this->amount = $amount;
 
@@ -35,7 +35,7 @@ class CurrencyConverter
     /**
      * @return $this
      */
-    public function amount(float $amount): static
+    public function amount(float $amount = 0): static
     {
         $this->amount = $amount;
 
@@ -63,7 +63,9 @@ class CurrencyConverter
     }
 
     /**
-     * @throws Exception
+     * @return $this
+     *
+     * @throws NetworkException
      */
     public function currencies(): static
     {
@@ -71,7 +73,7 @@ class CurrencyConverter
         $result = $response->json();
 
         if (! $result) {
-            throw new Exception('Something went wrong, please try again later');
+            throw new NetworkException();
         }
 
         $this->currencies = array_change_key_case($result, CASE_UPPER);
