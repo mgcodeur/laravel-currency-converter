@@ -9,7 +9,7 @@
 
 Laravel Currency Converter: Effortlessly convert currencies in your Laravel applications, no API key required. It's fast, easy, and completely free.
 
-## Installation
+## 📦 Installation
 
 You can install the package via composer:
 
@@ -22,7 +22,7 @@ After Composer has installed the Laravel Currency Converter package, you may run
 ```bash
 php artisan currency-converter:install
 ```
-## Basic Usage
+## ✍🏻 Basic Usage
 
 ### Convert money from one to another
 
@@ -93,3 +93,6 @@ return [
     ],
 ];
 ```
+
+### 🪴 Project Activity
+![Alt](https://repobeats.axiom.co/api/embed/25c035763caeb00b127eb4ce26447d4b5a36a8f5.svg "Project Activity")
