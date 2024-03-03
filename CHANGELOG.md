@@ -2,6 +2,19 @@
 
 All notable changes to `laravel-currency-converter` will be documented in this file.
 
+## 1.0.3 - 2024-01-30
+
+### What's Changed
+
+* Feature/adding format method by @mgcodeur in https://github.com/mgcodeur/laravel-currency-converter/pull/1
+* Adding custom exception handling && Adding missing tests by @mgcodeur in https://github.com/mgcodeur/laravel-currency-converter/pull/2
+
+### New Contributors
+
+* @mgcodeur made their first contribution in https://github.com/mgcodeur/laravel-currency-converter/pull/1
+
+**Full Changelog**: https://github.com/mgcodeur/laravel-currency-converter/compare/1.0.2...1.0.3
+
 ## 1.0.2 - 2024-01-19
 
 - Adding format method to format output result
