@@ -20,7 +20,7 @@ on:
 jobs:
   test:
     runs-on: ${{ matrix.os }}
-    timeout-minutes: 5
+    timeout-minutes: 10
     strategy:
       fail-fast: true
       matrix:
@@ -31,6 +31,9 @@ jobs:
         include:
           - laravel: 10.*
             testbench: 8.*
+            carbon: ^2.63
+          - laravel: 11.*
+            testbench: 9.*
             carbon: ^2.63
 
     name: P${{ matrix.php }} - L${{ matrix.laravel }} - ${{ matrix.stability }} - ${{ matrix.os }}
