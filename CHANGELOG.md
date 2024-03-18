@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-currency-converter` will be documented in this file.
 
+## 1.0.4 - 2024-03-18
+
+Add laravel 11 support
+
 ## 1.0.3 - 2024-01-30
 
 ### What's Changed
