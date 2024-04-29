@@ -73,18 +73,22 @@ test('convert currency from USD to EUR', function () {
 test('convert currency from USD to all supported currencies', function () {
     // example of value of 1 USD in [eur, mga, btc]
     $dataToMock = [
-        'eur' => 0.92326769,
-        'mga' => 4511.5880329,
-        'btc' => 0.0000229836,
+        'usd' => [
+            'eur' => 0.92326769,
+            'mga' => 4511.5880329,
+            'btc' => 0.0000229836,
+        ],
     ];
 
     $amountToConvert = 100;
 
-    $convertedAmount = array_map(fn ($value) => $value * $amountToConvert, $dataToMock);
+    $convertedAmount = array_map(fn ($value) => $value * $amountToConvert, $dataToMock['usd']);
 
-    $mockedResponse = new \Illuminate\Http\Client\Response(
+    $response = new \Illuminate\Http\Client\Response(
         new \GuzzleHttp\Psr7\Response(200, [], json_encode($dataToMock))
     );
+
+    $mockedResponse = $response->json();
 
     $this->currencyServiceMock
         ->shouldReceive('runConversionFrom')
@@ -95,8 +99,7 @@ test('convert currency from USD to all supported currencies', function () {
         ->shouldReceive('convertAllCurrency')
         ->with(
             100,
-            'usd',
-            $dataToMock,
+            $dataToMock['usd'],
             false
         )
         ->andReturn($convertedAmount);

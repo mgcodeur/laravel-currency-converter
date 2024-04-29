@@ -4,17 +4,18 @@ namespace Mgcodeur\CurrencyConverter\Services;
 
 use Illuminate\Http\Client\Response;
 use Illuminate\Support\Facades\Http;
+use Mgcodeur\CurrencyConverter\Exceptions\NetworkException;
 
 class CurrencyService
 {
-    private string $baseUrl = 'https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies';
+    private string $baseUrl = 'https://latest.currency-api.pages.dev/v1/currencies';
 
-    public function convertAllCurrency($amount, $from, $result, $format = false): array
+    public function convertAllCurrency($amount, array $result, bool $format = false): array
     {
         $converted = [];
 
-        if (array_key_exists($from, $result) && ! empty($result[$from])) {
-            foreach ($result[$from] as $currency => $value) {
+        if (! empty($result)) {
+            foreach ($result as $currency => $value) {
                 if ($format) {
                     $converted[$currency] = number_format(
                         num: $value * $amount,
@@ -33,11 +34,30 @@ class CurrencyService
 
     public function fetchAllCurrencies(): Response
     {
-        return Http::get($this->baseUrl.'.json');
+        return Http::withoutVerifying()->get($this->baseUrl.'.json');
     }
 
-    public function runConversionFrom(string $from, ?string $to = ''): Response
+    public function runConversionFrom(string $from, ?string $to = '')
     {
-        return $to ? Http::get($this->baseUrl."/{$from}/{$to}.json") : Http::get($this->baseUrl."/{$from}.json");
+        $response = Http::withoutVerifying()
+            ->get($this->baseUrl."/{$from}.json");
+
+        if ($response->failed()) {
+            throw new NetworkException();
+        }
+
+        $datas = $response->json();
+
+        if ($to && array_key_exists($from, $datas)) {
+            $datas = $datas[$from][$to];
+        }
+
+        if (is_numeric($datas)) {
+            $datas = [
+                $to => $datas,
+            ];
+        }
+
+        return $datas;
     }
 }
