@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-currency-converter` will be documented in this file.
 
+## 1.0.5 - 2024-04-29
+
+Fix error: error as failed to fetch api
+
 ## 1.0.4 - 2024-03-18
 
 Add laravel 11 support
