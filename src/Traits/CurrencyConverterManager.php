@@ -11,7 +11,7 @@ trait CurrencyConverterManager
     /**
      * @throws NetworkException | MissingAmountException | MissingCurrencyException
      */
-    public function get($format = false): float|int|array|string
+    public function get($format = false)
     {
         $this->verifyDataBeforeGettingResults();
 
@@ -19,22 +19,15 @@ trait CurrencyConverterManager
             return $this->currencies;
         }
 
-        $response = $this->currencyService->runConversionFrom(
+        $result = $this->currencyService->runConversionFrom(
             from: $this->from,
             to: $this->to
         );
 
-        if ($response->failed() || ! $response->json()) {
-            throw new NetworkException();
-        }
-
-        $result = $response->json();
-
         if (! $this->to) {
             return $this->currencyService->convertAllCurrency(
                 amount: $this->amount,
-                from: $this->from,
-                result: $result,
+                result: $result[$this->from],
                 format: $format
             );
         }
