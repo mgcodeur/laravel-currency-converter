@@ -3,18 +3,19 @@ name: "Update Changelog"
 on:
   release:
     types: [released]
+  workflow_dispatch:
 
 permissions:
   contents: write
   pull-requests: write
 
 jobs:
-  update:
+  update-changelog:
     runs-on: ubuntu-latest
     timeout-minutes: 5
 
     steps:
-      - name: Checkout code
+      - name: Checkout
         uses: actions/checkout@v4
         with:
           ref: main
@@ -25,7 +26,7 @@ jobs:
           latest-version: ${{ github.event.release.name }}
           release-notes: ${{ github.event.release.body }}
 
-      - name: Commit updated CHANGELOG to new branch
+      - name: Commit Changelog on new branch
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           branch: chore/update-changelog-${{ github.event.release.tag_name }}
@@ -39,4 +40,4 @@ jobs:
           title: "chore: update CHANGELOG for ${{ github.event.release.tag_name }}"
           branch: chore/update-changelog-${{ github.event.release.tag_name }}
           base: main
-          body: "This PR updates the CHANGELOG following the release of version ${{ github.event.release.tag_name }}."
+          body: "Automatic update of CHANGELOG for release ${{ github.event.release.tag_name }}."
