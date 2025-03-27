@@ -2,7 +2,6 @@
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/mgcodeur/laravel-currency-converter.svg?style=flat-square)](https://packagist.org/packages/mgcodeur/laravel-currency-converter)
 
-
 [![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/mgcodeur/laravel-currency-converter/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/mgcodeur/laravel-currency-converter/?query=workflow%3Arun-tests+branch%3Amain)
 [![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/mgcodeur/laravel-currency-converter/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/mgcodeur/laravel-currency-converter/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/mgcodeur/laravel-currency-converter.svg?style=flat-square)](https://packagist.org/packages/mgcodeur/laravel-currency-converter)
@@ -22,6 +21,7 @@ After Composer has installed the Laravel Currency Converter package, you may run
 ```bash
 php artisan currency-converter:install
 ```
+
 ## ✍🏻 Basic Usage
 
 ### Convert money from one to another
@@ -35,6 +35,7 @@ $convertedAmount = CurrencyConverter::convert(10)
 
 dd($convertedAmount);
 ```
+
 **NB: Don't Forget to import the CurrencyConverter Facades**
 
 ```php
@@ -72,7 +73,7 @@ Instead of using the `get` method, you can use the `format` method to format the
 // convert 10 USD to EUR and format the result
 $convertedAmount = CurrencyConverter::convert(10)
             ->from('USD')
-            ->to('EUR') // you don't need to specify the to method if you want to convert all currencies
+            ->to('EUR') // The 'to' method specifies the target currency. If you want to convert between all currencies, you can omit this method.
             ->format();
 
 dd($convertedAmount);
@@ -86,13 +87,14 @@ If you open the config file, you will see the following code:
 return [
     'currency' => [
         'format' => [
-            'decimals' => 2, // change this to 0 if you want result like 1.000, or 3 if you want result like 1.000.000
-            'decimal_separator' => ',', // change this to '.' if you want result like 1.000,00, or space if you want result like 1 000,00
-            'thousand_separator' => '.', // change this to ',' if you want result like 1,000.00, or '.' if you want result like 1 000.00
+            'decimals' => 2, // Number of decimal places
+            'decimal_separator' => ',', // Decimal separator: used to separate the integer part from the fractional part (e.g., 1,99)
+            'thousand_separator' => '.', // Thousand separator: used to separate groups of thousands in large numbers (e.g., 1.000 for one thousand)
         ]
     ],
 ];
 ```
 
 ### 🪴 Project Activity
+
 ![Alt](https://repobeats.axiom.co/api/embed/25c035763caeb00b127eb4ce26447d4b5a36a8f5.svg "Project Activity")
