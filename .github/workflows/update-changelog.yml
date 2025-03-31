@@ -34,7 +34,7 @@ jobs:
           file_pattern: CHANGELOG.md
 
       - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v6
+        uses: peter-evans/create-pull-request@v7
         with:
           title: "chore: update CHANGELOG for ${{ github.event.release.tag_name }}"
           branch: chore/update-changelog-${{ github.event.release.tag_name }}
